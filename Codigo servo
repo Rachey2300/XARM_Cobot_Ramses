@@ -1,0 +1,21 @@
+#include <Servo.h>
+
+Servo miServo;
+int anguloInicio = 0;
+int anguloFinal = 180;
+int tiempoCiclo = 8000; // milisegundos
+int tiempoMitad = tiempoCiclo / 2;
+
+void setup() {
+  miServo.attach(11);  // Primer pin de servo en RAMPS 1.4
+}
+
+void loop() {
+  // Mover de 0 a 180 grados
+  miServo.write(anguloFinal);
+  delay(tiempoMitad); // Espera 4 segundos
+
+  // Regresar de 180 a 0 grados
+  miServo.write(anguloInicio);
+  delay(tiempoMitad); // Espera 4 segundos
+}
