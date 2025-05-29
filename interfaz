@@ -1,0 +1,15 @@
+# --- BOTÓN DE CONTROL DEL SERVO ---
+self.btn_servo = QPushButton("Iniciar Movimiento Servo")
+self.btn_servo.setCheckable(True)
+self.btn_servo.clicked.connect(self.toggle_servo)
+right_layout.addWidget(self.btn_servo)
+
+# ...
+
+def toggle_servo(self):
+    if self.btn_servo.isChecked():
+        self.btn_servo.setText("Detener Movimiento Servo")
+        arduino.write(b"SERVO:ON\n")
+    else:
+        self.btn_servo.setText("Iniciar Movimiento Servo")
+        arduino.write(b"SERVO:OFF\n")
