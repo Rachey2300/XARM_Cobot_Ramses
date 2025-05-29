@@ -1,0 +1,35 @@
+#include <Servo.h>
+
+Servo miServo;
+bool moverServo = false; // Estado inicial: apagado
+
+void setup() {
+  Serial.begin(9600);
+  miServo.attach(1); // PIN 1 solo si usas Mega (ojo con conflictos con TX)
+  miServo.write(90); // Posición neutra opcional
+}
+
+void loop() {
+  if (Serial.available()) {
+    String comando = Serial.readStringUntil('\n');
+    comando.trim();
+
+    if (comando == "SERVO:ON") {
+      moverServo = true;
+    } else if (comando == "SERVO:OFF") {
+      moverServo = false;
+    }
+  }
+
+  if (moverServo) {
+    // Aquí el patrón de movimiento, si está activado
+    for (int ang = 0; ang <= 180; ang++) {
+      miServo.write(ang);
+      delay(10);
+    }
+    for (int ang = 180; ang >= 0; ang--) {
+      miServo.write(ang);
+      delay(10);
+    }
+  }
+}
